@@ -1,0 +1,14 @@
+{
+    "users":[
+        {
+            "id":"1",
+            "name":"Priyanshu Chourasia",
+            "role":"admin",
+            "email":"priyanshuchourasia916@gmail.com",
+            "password":"1234567890",
+            "designation":"manager",
+            "createdAt":"2024-10-05 19:41:23",
+            "updatedAt":"2024-10-05 19:41:23"
+        }
+    ]
+}
