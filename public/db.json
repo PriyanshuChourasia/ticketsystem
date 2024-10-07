@@ -4,7 +4,7 @@
             "id":"1",
             "name":"Priyanshu Chourasia",
             "role":"4",
-            "email":"priyanshuchourasia916@gmail.com",
+            "email":"priyanshu@gmail.com",
             "password":"1234567890",
             "designation":"2",
             "createdAt":"2024-10-05 19:41:23",
@@ -24,7 +24,7 @@
             "id":"3",
             "name":"Varsha",
             "role":"2",
-            "email":"priyanshuchourasia916@gmail.com",
+            "email":"varsha@gmail.com",
             "password":"1234567890",
             "designation":"4",
             "createdAt":"2024-10-05 19:45:31",
@@ -94,5 +94,8 @@
             "createdAt":"2024-10-05 12:15:25",
             "updatedAt":"2024-10-05 12:15:25"
         }
+    ],
+    "logins":[
+        
     ]
 }

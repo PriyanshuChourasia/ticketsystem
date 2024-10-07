@@ -3,11 +3,20 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import RouteNavigation from "./routes/RouteNavigation";
 import AuthProvider from "./context/AuthContext/AuthProvider";
+import DesignationProvider from "./context/DesignationContext/DesignationProvider";
+import UserProvider from "./context/UserContext/UserProvider";
+import RoleProvider from "./context/RoleContext/RoleProvider";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AuthProvider>
-      <RouteNavigation />
+      <UserProvider>
+        <DesignationProvider>
+          <RoleProvider>
+            <RouteNavigation />
+          </RoleProvider>
+        </DesignationProvider>
+      </UserProvider>
     </AuthProvider>
   </StrictMode>
 );

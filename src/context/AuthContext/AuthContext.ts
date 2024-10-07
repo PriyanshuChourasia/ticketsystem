@@ -1,4 +1,6 @@
 import { createContext } from "react"
+import { IAuthenticatedInterface } from "../../interfaces/AuthInterface/AuthenticatedInterface";
+import { AuthenticatedInitialState } from "../../initialState/AuthInitialState/AuthenticatedInitialState";
 
 
 
@@ -7,12 +9,16 @@ import { createContext } from "react"
 interface AuthProps{
     isAuthenticated:boolean;
     setIsAuthenticated:React.Dispatch<React.SetStateAction<boolean>>;
+    authUserDetail:IAuthenticatedInterface;
+    setAuthUserDetail: React.Dispatch<React.SetStateAction<IAuthenticatedInterface>>;
 }
 
 
 const AuthDefaultValue:AuthProps={
     isAuthenticated:false,
-    setIsAuthenticated:()=>{}
+    setIsAuthenticated:()=>{},
+    authUserDetail:AuthenticatedInitialState,
+    setAuthUserDetail:() =>{}
 }
 
 

@@ -1,15 +1,48 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "../views/auth/Login";
+import { BrowserRouter } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../context/UserContext/UserContext";
+import { useGetAllUsers } from "../api/endpoints/user/user-detail-api";
+import { AuthContext } from "../context/AuthContext/AuthContext";
+import AuthRoute from "./AuthRoute";
+import GuestRoute from "./GuestRoute";
+import useGetRoleDataDetail from "../api/endpoints/roles/role-data-api";
+import { RoleContext } from "../context/RoleContext/RoleContext";
 
 
 
 const RouteNavigation = () =>{
+
+    const {setUserDataDetail} = useContext(UserContext);
+    const {setRoleDataDetail} = useContext(RoleContext);
+    const {isAuthenticated} = useContext(AuthContext);
+    
+
+    useEffect(()=>{
+        useGetAllUsers().then((data)=>{
+            setUserDataDetail(data.data);
+        }).catch((error)=>{
+            console.warn("Error: ",error);
+        });
+        
+        useGetRoleDataDetail().then((data)=>{
+            setRoleDataDetail(data.data);
+        }).catch((error)=>{
+            console.warn("Error: ",error);
+        })
+    },[]);
+
+    console.log(isAuthenticated,"auth")
+
+
     return(
         <>
         <BrowserRouter>
-            <Routes>
-                <Route path="/"  element={<Login/>} />
-            </Routes>
+            {
+                isAuthenticated ?
+                <AuthRoute/>
+                :
+                <GuestRoute/>
+            }
         </BrowserRouter>
         </>
     )

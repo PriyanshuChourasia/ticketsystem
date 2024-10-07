@@ -1,13 +1,18 @@
 import { Form, Formik, FormikProps } from "formik";
 import CustomFormikInputBox from "./components/Input/CustomFormikInputBox";
 import Icons from "../../global/icons/Icon";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ActionButton from "../../global/components/Button/ActionButton";
 import { AuthInitialState } from "../../initialState/AuthInitialState/AuthInitialState";
 import { IAuthInterface } from "../../interfaces/AuthInterface/AuthInterface";
+import { UserContext } from "../../context/UserContext/UserContext";
+import checkLogin from "./services/checkLogin";
+import { AuthContext } from "../../context/AuthContext/AuthContext";
 
 const LoginAuth = () => {
   const [inputType, setInputType] = useState<string>("password");
+  const {userDataDetail} = useContext(UserContext);
+  const {setIsAuthenticated,setAuthUserDetail} = useContext(AuthContext);
 
   const handlePassword = () => {
     if (inputType == "password") {
@@ -24,6 +29,28 @@ const LoginAuth = () => {
         onSubmit={(values, action) => {
           setTimeout(() => {
             console.log(values);
+            setTimeout(async() => {
+              const response = await checkLogin(values,userDataDetail);
+              if(response === true)
+              {
+                const userDetails = userDataDetail.find(x => x.email === values.email);
+                if(userDetails)
+                {
+                  setAuthUserDetail({
+                    loginName:userDetails.name,
+                    loginRole:userDetails.role,
+                    loginTime: new Date(),
+                    loginToken:""
+                  });
+                  setIsAuthenticated(true);
+                }
+              }
+              else if(response === false)
+              {
+                setIsAuthenticated(false);
+              }
+              console.log("Login response: ",response);
+            }, 900);
             action.setSubmitting(true);
           }, 600);
         }}
