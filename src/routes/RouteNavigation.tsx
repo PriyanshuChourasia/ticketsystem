@@ -31,7 +31,6 @@ const RouteNavigation = () =>{
         })
     },[]);
 
-    console.log(isAuthenticated,"auth")
 
 
     return(

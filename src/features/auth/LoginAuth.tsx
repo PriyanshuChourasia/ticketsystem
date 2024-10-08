@@ -8,10 +8,14 @@ import { IAuthInterface } from "../../interfaces/AuthInterface/AuthInterface";
 import { UserContext } from "../../context/UserContext/UserContext";
 import checkLogin from "./services/checkLogin";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
+import { useSuccessNotification } from "../../utils/notifications/useSuccessNotification";
+import { useErrorNotification } from "../../utils/notifications/useErrorNotification";
+import { AuthValidationSchema } from "./hooks/AuthValidation";
 
 const LoginAuth = () => {
   const [inputType, setInputType] = useState<string>("password");
   const {userDataDetail} = useContext(UserContext);
+  const [loading,setLoading] = useState<boolean>(false);
   const {setIsAuthenticated,setAuthUserDetail} = useContext(AuthContext);
 
   const handlePassword = () => {
@@ -26,9 +30,10 @@ const LoginAuth = () => {
     <>
       <Formik
         initialValues={AuthInitialState}
+        validationSchema={AuthValidationSchema}
         onSubmit={(values, action) => {
           setTimeout(() => {
-            console.log(values);
+            setLoading(true);
             setTimeout(async() => {
               const response = await checkLogin(values,userDataDetail);
               if(response === true)
@@ -42,17 +47,20 @@ const LoginAuth = () => {
                     loginTime: new Date(),
                     loginToken:""
                   });
+                 
+                  useSuccessNotification("Login Successfull");
                   setIsAuthenticated(true);
                 }
               }
               else if(response === false)
               {
+                useErrorNotification("Please check your credentials");
                 setIsAuthenticated(false);
               }
-              console.log("Login response: ",response);
+              setLoading(false);
             }, 900);
             action.setSubmitting(true);
-          }, 600);
+          }, 300);
         }}
       >
         {({}: FormikProps<IAuthInterface>) => (
@@ -66,7 +74,7 @@ const LoginAuth = () => {
               type="email"
               name="email"
               icon={Icons.userIcon}
-              className="px-1 py-1.5 mb-3 border-2 border-gray-400 rounded-sm focus:border-black"
+              className="px-1 py-1.5 border-2 border-gray-400 rounded-sm focus:border-black"
             />
             <CustomFormikInputBox
               label="Password"
@@ -75,13 +83,15 @@ const LoginAuth = () => {
               type={inputType}
               name="password"
               icon={Icons.passwordIcon}
-              className="px-1 py-1.5 mb-2 border-2 border-gray-400 rounded-sm focus:border-black"
+              className="px-1 py-1.5 border-2 border-gray-400 rounded-sm focus:border-black"
             />
             <div className="mb-12">
               <ActionButton
+              isLoading={loading}
+              ringColor="#F2F2F2"
                 type="submit"
                 name="Submit"
-                className="w-full mt-4 py-1.5 px-4 text-white  bg-themeSecondary border-gray-600 rounded font-semibold text-center border-2"
+                className="w-full flex justify-center items-center mt-4 py-1.5 px-4 text-white  bg-themeSecondary border-gray-600 rounded font-semibold text-center border-2"
               />
             </div>
           </Form>

@@ -6,6 +6,8 @@ import AuthProvider from "./context/AuthContext/AuthProvider";
 import DesignationProvider from "./context/DesignationContext/DesignationProvider";
 import UserProvider from "./context/UserContext/UserProvider";
 import RoleProvider from "./context/RoleContext/RoleProvider";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -14,6 +16,7 @@ createRoot(document.getElementById("root")!).render(
         <DesignationProvider>
           <RoleProvider>
             <RouteNavigation />
+            <ToastContainer/>
           </RoleProvider>
         </DesignationProvider>
       </UserProvider>

@@ -6,7 +6,7 @@ const CustomFormikInputBox = ({ label,icon,onClickIcon, ...props }: any) => {
 
   return (
     <>
-      <div className="relative flex flex-col">
+      <div className="relative flex flex-col mb-3">
         {
           icon &&
           <div onClick={onClickIcon} className="absolute cursor-pointer right-2 top-9">

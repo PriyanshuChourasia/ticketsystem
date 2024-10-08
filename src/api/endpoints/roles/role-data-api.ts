@@ -6,7 +6,7 @@ import { IRoleInterface } from "../../../interfaces/RoleInterface/RoleInterface"
 
 async function useGetRoleDataDetail():Promise<AxiosResponse<IRoleInterface[]>>{
     try{
-        const response = await axiosApi.get("http://localhost:3000/roles");
+        const response = await axiosApi.get("/roles");
         return response;
     }catch(error){
         if(axios.isAxiosError(error))
