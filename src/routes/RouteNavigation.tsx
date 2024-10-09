@@ -7,6 +7,7 @@ import AuthRoute from "./AuthRoute";
 import GuestRoute from "./GuestRoute";
 import useGetRoleDataDetail from "../api/endpoints/roles/role-data-api";
 import { RoleContext } from "../context/RoleContext/RoleContext";
+import { getLoginEmail } from "../service/AuthService";
 
 
 
@@ -29,6 +30,18 @@ const RouteNavigation = () =>{
         }).catch((error)=>{
             console.warn("Error: ",error);
         })
+    },[]);
+
+
+    useEffect(()=>{
+
+        const checkUser = async() =>{
+            const loginId = await getLoginEmail();
+            console.log(loginId,'login id');
+        }
+
+        checkUser();
+       
     },[]);
 
 

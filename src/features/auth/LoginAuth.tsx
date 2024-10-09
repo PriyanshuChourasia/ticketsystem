@@ -11,6 +11,7 @@ import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { useSuccessNotification } from "../../utils/notifications/useSuccessNotification";
 import { useErrorNotification } from "../../utils/notifications/useErrorNotification";
 import { AuthValidationSchema } from "./hooks/AuthValidation";
+import { saveDataLocal } from "../../service/AuthService";
 
 const LoginAuth = () => {
   const [inputType, setInputType] = useState<string>("password");
@@ -47,7 +48,7 @@ const LoginAuth = () => {
                     loginTime: new Date(),
                     loginToken:""
                   });
-                 
+                  await saveDataLocal(userDetails.email);
                   useSuccessNotification("Login Successfull");
                   setIsAuthenticated(true);
                 }
