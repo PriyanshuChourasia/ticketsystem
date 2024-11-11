@@ -8,5 +8,6 @@ export const UserInitialState:IUserInterface={
     password: "",
     designation: "",
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    createdBy: ""
 }

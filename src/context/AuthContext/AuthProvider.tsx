@@ -15,8 +15,12 @@ const AuthProvider = ({children}:any) => {
       loginName:"",
       loginRole:"",
       loginTime:new Date(),
-      loginToken:""
+      loginToken:"",
+      loginid:""
     });
+
+
+ 
 
   return (
     <AuthContext.Provider value={{ 

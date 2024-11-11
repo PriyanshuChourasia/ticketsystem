@@ -1,4 +1,5 @@
 export const authName = "auth-name";
+export const authId = "auth-id";
 export const noAuth = "no-auth";
 
 
@@ -19,17 +20,23 @@ async function logout(){
 
 async function getLoginEmail(){
     const email = localStorage.getItem(authName);
-    if(email)
+    const auth = localStorage.getItem(authId);
+    if(email && auth)
     {
         const parseEmail:string = JSON.parse(email);
         return parseEmail;
     }
     else{
-        return noAuth;
+        return null;
     }
+}
+
+
+async function setUserAuth(){
+    localStorage.setItem(authId,JSON.stringify(true));
 }
 
 
 
 
-export {saveDataLocal,logout,getLoginEmail};
+export {saveDataLocal,logout,getLoginEmail,setUserAuth};

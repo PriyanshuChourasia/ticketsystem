@@ -1,98 +1,140 @@
 {
-    "users":[
-        {
-            "id":"1",
-            "name":"Priyanshu Chourasia",
-            "role":"4",
-            "email":"priyanshu@gmail.com",
-            "password":"1234567890",
-            "designation":"2",
-            "createdAt":"2024-10-05 19:41:23",
-            "updatedAt":"2024-10-05 19:41:23"
-        },
-        {
-            "id":"2",
-            "name":"Naveen",
-            "role":"1",
-            "email":"naveen123@gmail.com",
-            "password":"1234567890",
-            "designation":"1",
-            "createdAt":"2024-10-05 19:42:26",
-            "updatedAt":"2024-10-05 19:42:26"
-        },
-        {
-            "id":"3",
-            "name":"Varsha",
-            "role":"2",
-            "email":"varsha@gmail.com",
-            "password":"1234567890",
-            "designation":"4",
-            "createdAt":"2024-10-05 19:45:31",
-            "updatedAt":"2024-10-05 19:45:31"
-        }
-    ],
-    "roles":[
-        {
-            "id":"1",
-            "name":"admin",
-            "createdAt":"2024-10-05 14:41:23",
-            "updatedAt":"2024-10-05 14:41:23"
-        },
-        {
-            "id":"2",
-            "name":"support",
-            "createdAt":"2024-10-05 14:42:33",
-            "updatedAt":"2024-10-05 14:42:33"
-        },
-        {
-            "id":"3",
-            "name":"user",
-            "createdAt":"2024-10-05 14:43:11",
-            "updatedAt":"2024-10-05 14:43:11"
-        },
-        {
-            "id":"4",
-            "name":"developer",
-            "createdAt":"2024-10-05 14:44:16",
-            "updatedAt":"2024-10-05 14:44:16"
-        }
-    ],
-    "designations":[
-        {
-            "id":"1",
-            "name":"Manager",
-            "createdAt":"2024-10-05 12:11:03",
-            "updatedAt":"2024-10-05 12:11:03"
-        },
-        {
-            "id":"2",
-            "name":"Software Developer",
-            "createdAt":"2024-10-05 12:12:53",
-            "updatedAt":"2024-10-05 12:12:53"
-        },
-        {
-            "id":"3",
-            "name":"Customer",
-            "createdAt":"2024-10-05 12:13:13",
-            "updatedAt":"2024-10-05 12:13:13"
-        },
-        {
-            "id":"4",
-            "name":"Technical Support",
-            "createdAt":"2024-10-05 12:14:23",
-            "updatedAt":"2024-10-05 12:14:23"
-        },
-        {
-            "id":"5",
-            "name":"Technical Lead",
-            "createdAt":"2024-10-05 12:14:23",
-            "updatedAt":"2024-10-05 12:14:23"
-        },
-        {
-            "id":"6",
-            "name":"Support Lead",
-            "createdAt":"2024-10-05 12:15:25",
-            "updatedAt":"2024-10-05 12:15:25"
-        }
-    ]
+  "users": [
+    {
+      "id": "1",
+      "name": "Priyanshu Chourasia",
+      "role": "4",
+      "email": "priyanshu@gmail.com",
+      "password": "1234567890",
+      "designation": "2",
+      "createdBy": "2",
+      "createdAt": "2024-10-05 19:41:23",
+      "updatedAt": "2024-10-05 19:41:23"
+    },
+    {
+      "id": "2",
+      "name": "Naveen",
+      "role": "1",
+      "email": "naveen123@gmail.com",
+      "password": "1234567890",
+      "designation": "1",
+      "createdBy": "",
+      "createdAt": "2024-10-05 19:42:26",
+      "updatedAt": "2024-10-05 19:42:26"
+    },
+    {
+      "id": "3",
+      "name": "Varsha",
+      "role": "2",
+      "email": "varsha@gmail.com",
+      "password": "1234567890",
+      "createdBy": "2",
+      "designation": "4",
+      "createdAt": "2024-10-05 19:45:31",
+      "updatedAt": "2024-10-05 19:45:31"
+    },
+    {
+      "id": "4",
+      "name": "Samir Ram",
+      "role": "5",
+      "email": "sam122@gmail.com",
+      "password": "1234567890",
+      "designation": "1",
+      "createdBy": "",
+      "createdAt": "2024-10-09 12:04:56",
+      "updatedAt": "2024-10-09 12:04:56"
+    },
+    {
+      "id": "5",
+      "name": "Shree Chourasia",
+      "email": "shree123@gmail.com",
+      "password": "1234567890",
+      "role": "1",
+      "designation": "2",
+      "createdBy": "4",
+      "createdAt": "2024-10-09T12:46:56.032Z",
+      "updatedAt": "2024-10-09T12:46:56.032Z"
+    },
+    {
+      "id": "6",
+      "name": "Vedika Arote",
+      "email": "veda123@gmail.com",
+      "password": "1234567890",
+      "role": "1",
+      "designation": "2",
+      "createdBy": "4",
+      "createdAt": "2024-10-09T12:50:15.773Z",
+      "updatedAt": "2024-10-09T12:50:15.773Z"
+    }
+  ],
+  "roles": [
+    {
+      "id": "1",
+      "name": "admin",
+      "createdAt": "2024-10-05 14:41:23",
+      "updatedAt": "2024-10-05 14:41:23"
+    },
+    {
+      "id": "2",
+      "name": "support",
+      "createdAt": "2024-10-05 14:42:33",
+      "updatedAt": "2024-10-05 14:42:33"
+    },
+    {
+      "id": "3",
+      "name": "user",
+      "createdAt": "2024-10-05 14:43:11",
+      "updatedAt": "2024-10-05 14:43:11"
+    },
+    {
+      "id": "4",
+      "name": "developer",
+      "createdAt": "2024-10-05 14:44:16",
+      "updatedAt": "2024-10-05 14:44:16"
+    },
+    {
+      "id": "5",
+      "name": "Super Admin",
+      "createdAt": "2024-10-09 12:08:16",
+      "updatedAt": "2024-10-09 12:08:16"
+    }
+  ],
+  "designations": [
+    {
+      "id": "1",
+      "name": "Manager",
+      "createdAt": "2024-10-05 12:11:03",
+      "updatedAt": "2024-10-05 12:11:03"
+    },
+    {
+      "id": "2",
+      "name": "Software Developer",
+      "createdAt": "2024-10-05 12:12:53",
+      "updatedAt": "2024-10-05 12:12:53"
+    },
+    {
+      "id": "3",
+      "name": "Customer",
+      "createdAt": "2024-10-05 12:13:13",
+      "updatedAt": "2024-10-05 12:13:13"
+    },
+    {
+      "id": "4",
+      "name": "Technical Support",
+      "createdAt": "2024-10-05 12:14:23",
+      "updatedAt": "2024-10-05 12:14:23"
+    },
+    {
+      "id": "5",
+      "name": "Technical Lead",
+      "createdAt": "2024-10-05 12:14:23",
+      "updatedAt": "2024-10-05 12:14:23"
+    },
+    {
+      "id": "6",
+      "name": "Support Lead",
+      "createdAt": "2024-10-05 12:15:25",
+      "updatedAt": "2024-10-05 12:15:25"
+    }
+  ]
 }

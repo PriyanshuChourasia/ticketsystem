@@ -5,6 +5,7 @@ export interface IUserInterface{
     email:string;
     password:string;
     designation:string;
+    createdBy:string,
     createdAt:Date;
     updatedAt:Date;
 }
