@@ -1,23 +1,35 @@
 import { Form, Formik, FormikProps } from "formik";
 import CustomFormikInputBox from "./components/Input/CustomFormikInputBox";
 import Icons from "../../global/icons/Icon";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ActionButton from "../../global/components/Button/ActionButton";
 import { AuthInitialState } from "../../initialState/AuthInitialState/AuthInitialState";
 import { IAuthInterface } from "../../interfaces/AuthInterface/AuthInterface";
-import { UserContext } from "../../context/UserContext/UserContext";
-import checkLogin from "./services/checkLogin";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
-import { useSuccessNotification } from "../../utils/notifications/useSuccessNotification";
-import { useErrorNotification } from "../../utils/notifications/useErrorNotification";
 import { AuthValidationSchema } from "./hooks/AuthValidation";
-import { saveDataLocal, setUserAuth } from "../../service/AuthService";
+import { useUserLogin } from "../../api/apiHooks/auth/user-login-hooks";
+import { logout, setUserAuthToken } from "../../service/AuthService";
+import { useErrorNotification } from "../../utils/notifications/useErrorNotification";
 
 const LoginAuth = () => {
   const [inputType, setInputType] = useState<string>("password");
-  const {userDataDetail} = useContext(UserContext);
-  const [loading,setLoading] = useState<boolean>(false);
-  const {setIsAuthenticated,setAuthUserDetail} = useContext(AuthContext);
+  const {setIsAuthenticated} = useContext(AuthContext);
+  const {mutate,data,isPending} = useUserLogin();
+
+  useEffect(()=>{
+    if(data?.data.success === true){
+      setIsAuthenticated(true);
+      setUserAuthToken(data.data.data.access_token);
+    }
+    else if(data?.data.success === false){
+      useErrorNotification(data.data.error.error);
+      setIsAuthenticated(false);
+      logout();
+    }
+  },[,data]);
+
+
+
 
   const handlePassword = () => {
     if (inputType == "password") {
@@ -34,33 +46,8 @@ const LoginAuth = () => {
         validationSchema={AuthValidationSchema}
         onSubmit={(values, action) => {
           setTimeout(() => {
-            setLoading(true);
             setTimeout(async() => {
-              const response = await checkLogin(values,userDataDetail);
-              if(response === true)
-              {
-                const userDetails = userDataDetail.find(x => x.email === values.email);
-                if(userDetails)
-                {
-                  setAuthUserDetail({
-                    loginName:userDetails.name,
-                    loginRole:userDetails.role,
-                    loginTime: new Date(),
-                    loginToken:"",
-                    loginid:userDetails.id
-                  });
-                  await saveDataLocal(userDetails.email);
-                  await setUserAuth();
-                  useSuccessNotification("Login Successfull");
-                  setIsAuthenticated(true);
-                }
-              }
-              else if(response === false)
-              {
-                useErrorNotification("Please check your credentials");
-                setIsAuthenticated(false);
-              }
-              setLoading(false);
+              mutate({email:values.email,password:values.password});
             }, 900);
             action.setSubmitting(true);
           }, 300);
@@ -90,7 +77,7 @@ const LoginAuth = () => {
             />
             <div className="mb-12">
               <ActionButton
-              isLoading={loading}
+              isLoading={isPending}
               ringColor="#F2F2F2"
                 type="submit"
                 name="Submit"

@@ -1,5 +1,5 @@
 export const authName = "auth-name";
-export const authId = "auth-id";
+export const authToken = "auth-token";
 export const noAuth = "no-auth";
 
 
@@ -18,13 +18,11 @@ async function logout(){
 
 
 
-async function getLoginEmail(){
-    const email = localStorage.getItem(authName);
-    const auth = localStorage.getItem(authId);
-    if(email && auth)
+async function getLoginToken(){
+    const auth = localStorage.getItem(authToken);
+    if(auth)
     {
-        const parseEmail:string = JSON.parse(email);
-        return parseEmail;
+        return true;
     }
     else{
         return null;
@@ -32,11 +30,11 @@ async function getLoginEmail(){
 }
 
 
-async function setUserAuth(){
-    localStorage.setItem(authId,JSON.stringify(true));
+async function setUserAuthToken(token:string){
+    localStorage.setItem(authToken,JSON.stringify(token));
 }
 
 
 
 
-export {saveDataLocal,logout,getLoginEmail,setUserAuth};
+export {saveDataLocal,logout,getLoginToken,setUserAuthToken};

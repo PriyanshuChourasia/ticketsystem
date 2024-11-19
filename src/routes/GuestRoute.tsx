@@ -5,6 +5,7 @@ const GuestRoute = () =>{
     return(
             <Routes>
                 <Route path="/" element={<Login/>} />
+                {/* <Route path="/create-user" element={<} /> */}
             </Routes>
     )
 }
