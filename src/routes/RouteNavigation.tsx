@@ -13,44 +13,15 @@ import { getLoginToken } from "../service/AuthService";
 // import { DesignationContext } from "../context/DesignationContext/DesignationContext";
 
 const RouteNavigation = () => {
-  // const { setUserDataDetail, userDataDetail } = useContext(UserContext);
-  // const { setRoleDataDetail } = useContext(RoleContext);
-  // const {setDesignationDetail} = useContext(DesignationContext);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const { isAuthenticated, setAuthUserDetail, setIsAuthenticated } =
-    useContext(AuthContext);
-
-  // useEffect(() => {
-  //   useGetAllUsers()
-  //     .then((data) => {
-  //       setUserDataDetail(data.data);
-  //     })
-  //     .catch((error) => {
-  //       console.warn("Error: ", error);
-  //   });
-
-  //   useGetRoleDataDetail()
-  //     .then((data) => {
-  //       setRoleDataDetail(data.data);
-  //     })
-  //     .catch((error) => {
-  //       console.warn("Error: ", error);
-  //   });
-
-  //   useGetDesignationData().then((data)=>{
-  //       setDesignationDetail(data?.data);
-  //   }).catch((error)=>{
-  //       console.warn("Error: ",error);
-  //   });
-
-  // }, []);
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     const checkUser = async () => {
       setIsLoading(true);
       const loginId = await getLoginToken();
       if (loginId !== null) {
-          setIsAuthenticated(true);
+        setIsAuthenticated(true);
       }
       setTimeout(() => {
         setIsLoading(false);
@@ -63,16 +34,15 @@ const RouteNavigation = () => {
   return (
     <>
       <BrowserRouter>
-      <Suspense fallback={<ScreenLoader/>}>
-      {isLoading ? (
-          <ScreenLoader />
-        ) : isAuthenticated ? (
-          <AuthRoute />
-        ) : (
-          <GuestRoute />
-        )}
-      </Suspense>
-
+        <Suspense fallback={<ScreenLoader />}>
+          {isLoading ? (
+            <ScreenLoader />
+          ) : isAuthenticated ? (
+            <AuthRoute />
+          ) : (
+            <GuestRoute />
+          )}
+        </Suspense>
       </BrowserRouter>
     </>
   );

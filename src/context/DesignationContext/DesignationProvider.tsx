@@ -1,20 +1,24 @@
-import { useState } from "react"
-import { DesignationContext } from "./DesignationContext"
+import { useState } from "react";
+import { DesignationContext } from "./DesignationContext";
 import { IDesignationInterface } from "../../interfaces/DesignationInterface/DesignationInterface";
 
+const DesignationProvider = ({ children }: any) => {
+  const [designationDetail, setDesignationDetail] = useState<
+    IDesignationInterface[]
+  >([]);
 
-const DesignationProvider = ({children}:any) => {
-
-    const [designationDetail,setDesignationDetail] = useState<IDesignationInterface[]>([]);
-
+  console.log("designation context");
 
   return (
-    <DesignationContext.Provider value={{ 
-        designationDetail,setDesignationDetail
-     }}>
+    <DesignationContext.Provider
+      value={{
+        designationDetail,
+        setDesignationDetail,
+      }}
+    >
       {children}
     </DesignationContext.Provider>
-  )
-}
+  );
+};
 
-export default DesignationProvider
+export default DesignationProvider;

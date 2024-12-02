@@ -1,6 +1,7 @@
 export const authName = "auth-name";
-export const authToken = "auth-token";
-export const noAuth = "no-auth";
+export const access_Token = "access_Token";
+export const refresh_Token = "refresh_Token";
+export const noToken = "no-token";
 
 
 
@@ -19,7 +20,7 @@ async function logout(){
 
 
 async function getLoginToken(){
-    const auth = localStorage.getItem(authToken);
+    const auth = localStorage.getItem(access_Token);
     if(auth)
     {
         return true;
@@ -31,10 +32,54 @@ async function getLoginToken(){
 
 
 async function setUserAuthToken(token:string){
-    localStorage.setItem(authToken,JSON.stringify(token));
+    localStorage.setItem(access_Token,JSON.stringify(token));
 }
 
 
+/**
+ * This function is to set token to local storage
+ * @param token :string
+ */
+function setAccessToken(token:string){
+    console.log(token,"string")
+    localStorage.setItem(access_Token,JSON.stringify(token));
+}
 
 
-export {saveDataLocal,logout,getLoginToken,setUserAuthToken};
+/**
+ * This function will return token if found and if not then it will return boolean value
+ * @returns Promise<string|boolean>
+ */
+async function getAccessToken():Promise<string | boolean>
+{
+    let token = localStorage.getItem(access_Token);
+    return token ?? false;
+}
+
+
+/**
+ * This function is to set refresh token
+ * @param token :string
+ */
+async function setRefreshToken(token:string){
+    localStorage.setItem(refresh_Token,JSON.stringify(token));
+}
+
+
+async function getRefreshToken():Promise<string|boolean>
+{
+    let token = localStorage.getItem(refresh_Token);
+    return token ?? false;
+}
+
+
+export {
+    saveDataLocal,
+    logout,
+    getLoginToken,
+    setUserAuthToken,
+    setAccessToken,
+    getAccessToken,
+    setRefreshToken,
+    getRefreshToken
+};

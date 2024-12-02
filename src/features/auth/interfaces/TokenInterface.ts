@@ -4,6 +4,6 @@ import { LoginSuccessInterface } from "./LoginSuccessInterface";
 
 export interface TokenResponseInterface extends SuccessInterface {
     data:LoginSuccessInterface;
-    error:LoginErrorInterface
+    error:LoginErrorInterface;
 }
 

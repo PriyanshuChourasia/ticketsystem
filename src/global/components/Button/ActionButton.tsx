@@ -22,7 +22,7 @@ const ActionButton: React.FC<ActionProps> = ({
     ringColor
 }) =>{
     return(
-        <button 
+        <button
         onClick={onHandleClick} 
         type={type}
         className={className}

@@ -7,19 +7,21 @@ import { AuthInitialState } from "../../initialState/AuthInitialState/AuthInitia
 import { IAuthInterface } from "../../interfaces/AuthInterface/AuthInterface";
 import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { AuthValidationSchema } from "./hooks/AuthValidation";
-import { useUserLogin } from "../../api/apiHooks/auth/user-login-hooks";
 import { logout, setUserAuthToken } from "../../service/AuthService";
 import { useErrorNotification } from "../../utils/notifications/useErrorNotification";
+import { useUserGetLogin } from "./hooks/user-login-hook-api";
 
 const LoginAuth = () => {
   const [inputType, setInputType] = useState<string>("password");
   const {setIsAuthenticated} = useContext(AuthContext);
-  const {mutate,data,isPending} = useUserLogin();
+  const [isLoading,setIsLoading] = useState<boolean>(false);
+  const {mutate,data,isPending} = useUserGetLogin();
 
-  useEffect(()=>{
+  useEffect( ()=>{
     if(data?.data.success === true){
       setIsAuthenticated(true);
       setUserAuthToken(data.data.data.access_token);
+      //  setAccessToken(data.data.data.access_token);
     }
     else if(data?.data.success === false){
       useErrorNotification(data.data.error.error);
@@ -45,12 +47,13 @@ const LoginAuth = () => {
         initialValues={AuthInitialState}
         validationSchema={AuthValidationSchema}
         onSubmit={(values, action) => {
-          setTimeout(() => {
+          setIsLoading(true)
             setTimeout(async() => {
               mutate({email:values.email,password:values.password});
+              action.setSubmitting(true);
+              setIsLoading(isPending);
             }, 900);
-            action.setSubmitting(true);
-          }, 300);
+            
         }}
       >
         {({}: FormikProps<IAuthInterface>) => (
@@ -77,7 +80,7 @@ const LoginAuth = () => {
             />
             <div className="mb-12">
               <ActionButton
-              isLoading={isPending}
+              isLoading={isLoading}
               ringColor="#F2F2F2"
                 type="submit"
                 name="Submit"
