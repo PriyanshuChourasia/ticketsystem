@@ -5,7 +5,6 @@ import { IRoleInterface } from "../../interfaces/RoleInterface/RoleInterface";
 const RoleProvider = ({ children }: any) => {
   const [roleDataDetail, setRoleDataDetail] = useState<IRoleInterface[]>([]);
 
-  console.log("role context");
   return (
     <RoleContext.Provider
       value={{

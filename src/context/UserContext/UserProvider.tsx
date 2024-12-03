@@ -5,7 +5,6 @@ import { IUserInterface } from "../../interfaces/UserInterface/UserInterface";
 const UserProvider = ({ children }: any) => {
   const [userDataDetail, setUserDataDetail] = useState<IUserInterface[]>([]);
 
-  console.log("user context");
 
   return (
     <UserContext.Provider

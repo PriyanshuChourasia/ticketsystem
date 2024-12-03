@@ -1,34 +1,18 @@
 import { Form, Formik, FormikProps } from "formik";
 import CustomFormikInputBox from "./components/Input/CustomFormikInputBox";
 import Icons from "../../global/icons/Icon";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import ActionButton from "../../global/components/Button/ActionButton";
 import { AuthInitialState } from "../../initialState/AuthInitialState/AuthInitialState";
 import { IAuthInterface } from "../../interfaces/AuthInterface/AuthInterface";
-import { AuthContext } from "../../context/AuthContext/AuthContext";
 import { AuthValidationSchema } from "./hooks/AuthValidation";
-import { logout, setUserAuthToken } from "../../service/AuthService";
-import { useErrorNotification } from "../../utils/notifications/useErrorNotification";
 import { useUserGetLogin } from "./hooks/user-login-hook-api";
 
 const LoginAuth = () => {
   const [inputType, setInputType] = useState<string>("password");
-  const {setIsAuthenticated} = useContext(AuthContext);
   const [isLoading,setIsLoading] = useState<boolean>(false);
-  const {mutate,data,isPending} = useUserGetLogin();
+  const {mutate,isPending} = useUserGetLogin();
 
-  useEffect( ()=>{
-    if(data?.data.success === true){
-      setIsAuthenticated(true);
-      setUserAuthToken(data.data.data.access_token);
-      //  setAccessToken(data.data.data.access_token);
-    }
-    else if(data?.data.success === false){
-      useErrorNotification(data.data.error.error);
-      setIsAuthenticated(false);
-      logout();
-    }
-  },[,data]);
 
 
 

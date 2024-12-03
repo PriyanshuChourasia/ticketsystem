@@ -61,11 +61,7 @@ const AddUser:React.FC<AddUserProps> = ({setAddModal}) => {
                     })
                 }
             
-                console.log(user?.status,'user resposne');
             }
-
-            console.log(emailExists, "Email exists");
-            console.log(values);
             action.setSubmitting(false);
             setIsLoading(false);
             setAddModal(false);

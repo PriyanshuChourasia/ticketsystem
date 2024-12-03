@@ -7,7 +7,6 @@ const DesignationProvider = ({ children }: any) => {
     IDesignationInterface[]
   >([]);
 
-  console.log("designation context");
 
   return (
     <DesignationContext.Provider

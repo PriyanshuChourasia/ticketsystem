@@ -41,7 +41,6 @@ async function setUserAuthToken(token:string){
  * @param token :string
  */
 function setAccessToken(token:string){
-    console.log(token,"string")
     localStorage.setItem(access_Token,JSON.stringify(token));
 }
 
