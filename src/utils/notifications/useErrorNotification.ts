@@ -1,6 +1,6 @@
 import { Bounce, toast } from "react-toastify"
 
-export const useErrorNotification = (message:string) =>{
+export const ErrorNotification = (message:string) =>{
     toast.error(message,{
         position:'top-right',
         autoClose:1000,

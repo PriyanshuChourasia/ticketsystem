@@ -1,3 +1,4 @@
+/* eslint-disable no-empty-pattern */
 import { Form, Formik, FormikProps } from "formik";
 import CustomFormikInputBox from "./components/Input/CustomFormikInputBox";
 import Icons from "../../global/icons/Icon";
@@ -12,7 +13,6 @@ const LoginAuth = () => {
   const [inputType, setInputType] = useState<string>("password");
   const [isLoading,setIsLoading] = useState<boolean>(false);
   const {mutate,isPending} = useUserGetLogin();
-
 
 
 
@@ -36,7 +36,7 @@ const LoginAuth = () => {
               mutate({email:values.email,password:values.password});
               action.setSubmitting(true);
               setIsLoading(isPending);
-            }, 900);
+            }, 1200);
             
         }}
       >

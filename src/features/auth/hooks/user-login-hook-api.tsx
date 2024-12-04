@@ -5,8 +5,8 @@ import { userLogin } from "../services/api"
 import { logout, setAccessToken } from "../../../service/AuthService"
 import { AuthContext } from "../../../context/AuthContext/AuthContext"
 import { useContext } from "react"
-import { useSuccessNotification } from "../../../utils/notifications/useSuccessNotification"
-import { useErrorNotification } from "../../../utils/notifications/useErrorNotification"
+import { SuccessNotification } from "../../../utils/notifications/useSuccessNotification"
+import { ErrorNotification } from "../../../utils/notifications/useErrorNotification"
 
 
 
@@ -28,13 +28,16 @@ export const useUserGetLogin = () =>{
         onSuccess:(data)=>{
             if(data.data.success === true){
                 setAccessToken(data.data.data.access_token);
-                useSuccessNotification("Login Successfull");
+                SuccessNotification("Login Successfull");
                 setIsAuthenticated(true);
             }else if(data.data.success === false){
-                useErrorNotification(data.data.error.message);
+                ErrorNotification(data.data.error.message);
                 setIsAuthenticated(false);
                 logout();
             }
         },
+        onError:(error)=>{
+            ErrorNotification(error.message);
+        }
     })
 }

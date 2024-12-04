@@ -51,10 +51,16 @@ function setAccessToken(token:string){
  */
 async function getAccessToken():Promise<string | boolean>
 {
-    let token = localStorage.getItem(access_Token);
+    const token:string|null = localStorage.getItem(access_Token);
     return token ?? false;
 }
 
+
+async function isAuth():Promise<boolean>
+{
+    const token:string |boolean = await getAccessToken();
+    return token ? true : false;
+}
 
 /**
  * This function is to set refresh token
@@ -67,7 +73,7 @@ async function setRefreshToken(token:string){
 
 async function getRefreshToken():Promise<string|boolean>
 {
-    let token = localStorage.getItem(refresh_Token);
+    const token:string|null = localStorage.getItem(refresh_Token);
     return token ?? false;
 }
 
@@ -80,5 +86,6 @@ export {
     setAccessToken,
     getAccessToken,
     setRefreshToken,
-    getRefreshToken
+    getRefreshToken,
+    isAuth
 };

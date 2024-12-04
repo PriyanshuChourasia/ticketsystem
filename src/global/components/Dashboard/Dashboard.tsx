@@ -1,4 +1,4 @@
-import DataTable from "../DataTable/DataTable";
+import { Outlet } from "react-router-dom";
 import Header from "./components/Header/Header";
 
 const Dashboard = () => {
@@ -6,7 +6,7 @@ const Dashboard = () => {
     <div>
       <Header />
       <div className="px-10 py-4">
-        <DataTable/>
+        <Outlet/>
       </div>
     </div>
   );

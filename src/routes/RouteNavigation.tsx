@@ -1,16 +1,10 @@
 import { BrowserRouter } from "react-router-dom";
 import { Suspense, useContext, useEffect, useState } from "react";
-// import { UserContext } from "../context/UserContext/UserContext";
-// import { useGetAllUsers } from "../api/endpoints/user/user-detail-api";
 import { AuthContext } from "../context/AuthContext/AuthContext";
 import AuthRoute from "./AuthRoute";
 import GuestRoute from "./GuestRoute";
-// import useGetRoleDataDetail from "../api/endpoints/roles/role-data-api";
-// import { RoleContext } from "../context/RoleContext/RoleContext";
 import ScreenLoader from "../global/loader/ScreenLoader";
 import { getLoginToken } from "../service/AuthService";
-// import useGetDesignationData from "../api/endpoints/designation/designation-data-api";
-// import { DesignationContext } from "../context/DesignationContext/DesignationContext";
 
 const RouteNavigation = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -29,7 +23,8 @@ const RouteNavigation = () => {
     };
 
     checkUser();
-  }, []);
+  },[setIsAuthenticated]);
+
 
   return (
     <>

@@ -1,18 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Field, Form, Formik, FormikProps } from "formik";
 import { IUserInterface } from "../../../../../interfaces/UserInterface/UserInterface";
 import { useContext, useState } from "react";
-import { UserContext } from "../../../../../context/UserContext/UserContext";
 import { RoleContext } from "../../../../../context/RoleContext/RoleContext";
 import { DesignationContext } from "../../../../../context/DesignationContext/DesignationContext";
 import { AuthContext } from "../../../../../context/AuthContext/AuthContext";
-import { EmailExists } from "../../hooks/EmailExists";
 import ActionButton from "../../../../../global/components/Button/ActionButton";
 import { AddUserValidationSchema } from "../../hooks/AddUserValidation";
 import CustomFormikInput from "../Formik/CustomFormikInput";
-import { useErrorNotification } from "../../../../../utils/notifications/useErrorNotification";
-import createUser from "../../../../../api/endpoints/user/create-user-detail-api";
-import { useSuccessNotification } from "../../../../../utils/notifications/useSuccessNotification";
-import { useGetAllUsers } from "../../../../../api/endpoints/user/user-detail-api";
 
 
 interface AddUserProps{
@@ -20,7 +15,6 @@ interface AddUserProps{
 }
 
 const AddUser:React.FC<AddUserProps> = ({setAddModal}) => {
-  const { userDataDetail,setUserDataDetail } = useContext(UserContext);
   const { roleDataDetail } = useContext(RoleContext);
   const { designationDetail } = useContext(DesignationContext);
   const { authUserDetail } = useContext(AuthContext);
@@ -31,7 +25,7 @@ const AddUser:React.FC<AddUserProps> = ({setAddModal}) => {
       <Formik
         validationSchema={AddUserValidationSchema}
         initialValues={{
-          id: `${userDataDetail.length + 1}`,
+          id: ``,
           name: "",
           email: "",
           password: "1234567890",
@@ -41,27 +35,10 @@ const AddUser:React.FC<AddUserProps> = ({setAddModal}) => {
           createdAt: new Date(),
           updatedAt: new Date(),
         }}
-        onSubmit={(values, action) => {
+        onSubmit={(_values, action) => {
           setIsLoading(true);
           setTimeout(async () => {
-            const emailExists = EmailExists(values.email, userDataDetail);
-            if(emailExists)
-            {
-                useErrorNotification("Email exists");
-            }
-            else{
-                const user = await createUser(values);
-                if(user)
-                {
-                    useSuccessNotification("User created successfully");
-                    useGetAllUsers().then((data)=>{
-                        setUserDataDetail(data.data);
-                    }).catch((error)=>{
-                        console.warn("Error: ",error);
-                    })
-                }
             
-            }
             action.setSubmitting(false);
             setIsLoading(false);
             setAddModal(false);
@@ -132,7 +109,7 @@ const AddUser:React.FC<AddUserProps> = ({setAddModal}) => {
                   Role
                 </label>
                 <Field name="role" >
-                  {({ field, meta }: any) => (
+                  {({ field, meta }:any) => (
                     <div>
                       <select className="w-64 px-2 py-1 bg-white border-2 border-gray-400 rounded focus:border-black focus:outline-none" {...field}>
                       <option value="">Select Designation</option>
