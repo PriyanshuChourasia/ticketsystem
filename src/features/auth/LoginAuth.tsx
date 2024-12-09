@@ -1,4 +1,3 @@
-/* eslint-disable no-empty-pattern */
 import { Form, Formik, FormikProps } from "formik";
 import CustomFormikInputBox from "./components/Input/CustomFormikInputBox";
 import Icons from "../../global/icons/Icon";
@@ -11,7 +10,6 @@ import { useUserGetLogin } from "./hooks/user-login-hook-api";
 
 const LoginAuth = () => {
   const [inputType, setInputType] = useState<string>("password");
-  const [isLoading,setIsLoading] = useState<boolean>(false);
   const {mutate,isPending} = useUserGetLogin();
 
 
@@ -31,13 +29,8 @@ const LoginAuth = () => {
         initialValues={AuthInitialState}
         validationSchema={AuthValidationSchema}
         onSubmit={(values, action) => {
-          setIsLoading(true)
-            setTimeout(async() => {
               mutate({email:values.email,password:values.password});
-              action.setSubmitting(true);
-              setIsLoading(isPending);
-            }, 1200);
-            
+              action.setSubmitting(false);
         }}
       >
         {({}: FormikProps<IAuthInterface>) => (
@@ -64,7 +57,7 @@ const LoginAuth = () => {
             />
             <div className="mb-12">
               <ActionButton
-              isLoading={isLoading}
+              isLoading={isPending}
               ringColor="#F2F2F2"
                 type="submit"
                 name="Submit"

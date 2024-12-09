@@ -2,7 +2,9 @@ const DataTable = () =>{
     console.log("user type route")
     return(
         <>
-        <h1>User type</h1>
+        <h1>
+            
+        </h1>
         </>
     )
 }

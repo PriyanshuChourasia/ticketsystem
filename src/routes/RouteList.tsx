@@ -9,11 +9,6 @@ export const MemberRoute: MemberRouteInterface[]=[
         name:'Users',
         role:['admin']
     },
-    {
-        id:1,
-        name:"User Type",
-        role:['admin']
-    }
 ]
 
 
@@ -38,7 +33,7 @@ export const routeList:RouteListInterface[] = [
                 path:"user_types",
                 name:"User Type",
                 element: <UserTypeDashboard/>,
-                memberRoute:1,
+                memberRoute:0,
                 isSideBarMenu:true,
                 isPrivate:true,
                 children:[
@@ -46,7 +41,6 @@ export const routeList:RouteListInterface[] = [
                         path: ":id",
                         name: "Create User Type",
                         element: <CreateUserType />,
-                        memberRoute: 1,
                         isSideBarMenu: false,
                         isPrivate: true,
                     }
@@ -61,4 +55,11 @@ export const routeList:RouteListInterface[] = [
         isSideBarMenu: false,
         isPrivate: false
     }
-]
+];
+
+
+console.log(routeList.filter(element=> {
+    return element.children?.some(ele=> {
+        return ele.memberRoute == 0
+    })
+}))

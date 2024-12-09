@@ -30,5 +30,6 @@ export interface ChildRouteListInterface{
 export interface MemberRouteInterface{
     id:number;
     name:string;
-    role?:Array<string>
+    role?:Array<string>;
+    icon?: JSX.Element
 }

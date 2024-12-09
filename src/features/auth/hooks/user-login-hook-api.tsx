@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query"
 import { login_query_key } from "../services/qyery-key"
 import { LoginRequestInterface } from "../interfaces/LoginRequestInterface"
 import { userLogin } from "../services/api"
-import { logout, setAccessToken } from "../../../service/AuthService"
+import { logout, setAccessToken, setRefreshToken } from "../../../service/AuthService"
 import { AuthContext } from "../../../context/AuthContext/AuthContext"
 import { useContext } from "react"
 import { SuccessNotification } from "../../../utils/notifications/useSuccessNotification"
@@ -28,6 +28,7 @@ export const useUserGetLogin = () =>{
         onSuccess:(data)=>{
             if(data.data.success === true){
                 setAccessToken(data.data.data.access_token);
+                setRefreshToken(data.data.data.refresh_token);
                 SuccessNotification("Login Successfull");
                 setIsAuthenticated(true);
             }else if(data.data.success === false){

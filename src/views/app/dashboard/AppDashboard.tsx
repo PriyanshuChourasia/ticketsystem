@@ -1,9 +1,17 @@
-import Dashboard from "../../../global/components/Dashboard/Dashboard"
+import Layout from "@/app/layout"
+import { Outlet } from "react-router-dom"
 
 const AppDashboard = () => {
+
+  
+
   return (
     <>
-      <Dashboard/>
+      <Layout>
+
+        <Outlet/>
+ 
+      </Layout>
     </>
   )
 }
