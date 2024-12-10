@@ -1,0 +1,1 @@
+export const get_all_user_type_key = 'get-all-user-type-api-key';

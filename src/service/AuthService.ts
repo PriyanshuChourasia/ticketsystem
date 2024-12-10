@@ -14,6 +14,7 @@ async function saveDataLocal(loginEmail:string){
 
 async function logout(){
     localStorage.clear();
+    window.location.href='/'
     return true;
 }
 

@@ -1,10 +1,28 @@
+import ReactDataTable from "@/global/components/DataTable/DataTable";
+import { useGetAllUserType } from "../hooks/get-user-type-hooks";
+import { DataTableColumnInterface } from "@/global/components/DataTable/interface/DataTableColumnInterface";
+import { IUserTypeInterface } from "../interface/UserTypeInterface";
+
 const DataTable = () =>{
-    console.log("user type route")
+    const {data} = useGetAllUserType();
+
+    const columns:DataTableColumnInterface<IUserTypeInterface>[]=[
+        {
+            accessorKey:"",
+            header:"ID",
+            cell:(props) => <>{props.row.index +1}</>
+        },
+        {
+            accessorKey:"name",
+            header:"User Type",
+            cell:(props)=><>{props.getValue()}</>
+        }
+    ]
+
+
     return(
         <>
-        <h1>
-            
-        </h1>
+            <ReactDataTable columns={columns} data={data ? data.data.data : []} />
         </>
     )
 }

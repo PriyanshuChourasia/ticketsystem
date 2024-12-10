@@ -11,7 +11,7 @@ axiosApi.interceptors.request.use( (config) => {
   const parsedToken = token ? JSON.parse(token) : false;
 
   if(parsedToken){
-    config.headers['Authorization'] = `Bearer ${token}`;
+    config.headers['Authorization'] = `Bearer ${parsedToken}`;
   }
   return config;
 },(error)=>{

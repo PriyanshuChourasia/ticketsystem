@@ -1,92 +1,85 @@
-import { useState } from "react";
-import ActionButton from "../Button/ActionButton";
-import TableModal from "../Dashboard/components/Modal/TableModal";
-import AddUser from "../../../features/app/admin/components/AddUser/AddUser";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { DataTableColumnInterface } from "./interface/DataTableColumnInterface";
 
-const DataTable = () => {
-  const [addForm, setAddForm] = useState<boolean>(false);
+interface DataTableInterface {
+  data: any[];
+  columns: DataTableColumnInterface<any>[];
+}
 
-  const handleClick = () => {
-    setAddForm(true);
-  };
+const ReactDataTable: React.FC<DataTableInterface> = ({ data, columns }) => {
+  const table = useReactTable({
+    data,
+    columns: columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
 
   return (
     <>
       <div>
-        <div className="relative overflow-x-auto">
-          <div className="flex justify-end">
-            <ActionButton
-              onHandleClick={handleClick}
-              className="px-2 py-2 text-sm font-semibold text-center text-white border-2 border-gray-400 rounded hover:border-themeLight bg-themeSecondary hover:bg-themeTertiary"
-              type="button"
-              name="Add form"
-            />
-          </div>
-          <table className="w-full text-sm text-left text-gray-500 rtl:text-right dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  Product name
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Color
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Category
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Price
-                </th>
+        <table>
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <th key={header.id} colSpan={header.colSpan}>
+                      {header.isPlaceholder ? null : (
+                        <div
+                          {...{
+                            className: header.column.getCanSort()
+                              ? "cursor-pointer select-none"
+                              : "",
+                            onClick: header.column.getToggleGroupingHandler(),
+                          }}
+                        >
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                          {{
+                            asc: "🔼",
+                            desc: "🔽",
+                          }[header.column.getIsSorted() as string] ?? null}
+                          {header.column.getCanFilter() ? <div></div> : null}
+                        </div>
+                      )}
+                    </th>
+                  );
+                })}
               </tr>
-            </thead>
-            <tbody>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Apple MacBook Pro 17"
-                </th>
-                <td className="px-6 py-4">Silver</td>
-                <td className="px-6 py-4">Laptop</td>
-                <td className="px-6 py-4">$2999</td>
-              </tr>
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Microsoft Surface Pro
-                </th>
-                <td className="px-6 py-4">White</td>
-                <td className="px-6 py-4">Laptop PC</td>
-                <td className="px-6 py-4">$1999</td>
-              </tr>
-              <tr className="bg-white dark:bg-gray-800">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Magic Mouse 2
-                </th>
-                <td className="px-6 py-4">Black</td>
-                <td className="px-6 py-4">Accessories</td>
-                <td className="px-6 py-4">$99</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </thead>
+          <tbody>
+            {
+              table.getRowModel().rows.map(row => {
+                return(
+                  <tr key={row.id}>
+                    {
+                      row.getVisibleCells().map(cell=> {
+                        return(
+                          <td key={cell.id}>
+                            {
+                              flexRender(cell.column.columnDef.cell,
+                                cell.getContext()
+                              )
+                            }
+                          </td>
+                        )
+                      })
+                    }
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </table>
       </div>
-
-      {addForm && (
-        <TableModal
-          headerName="Add User"
-          setCloseModal={setAddForm}
-          children={<AddUser setAddModal={setAddForm} />}
-        />
-      )}
     </>
   );
 };
 
-export default DataTable;
+export default ReactDataTable;

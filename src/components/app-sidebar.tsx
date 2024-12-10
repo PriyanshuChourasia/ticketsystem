@@ -41,7 +41,7 @@ import { NavLink } from "react-router-dom";
     }, []);
 
     return (
-      <Sidebar>
+      <Sidebar className="px-2">
         <SidebarHeader />
         <SidebarContent>
           <SidebarGroup />
