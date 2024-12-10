@@ -4,30 +4,45 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/context/AuthContext/AuthContext";
 import ScreenLoader from "@/global/loader/ScreenLoader";
 import { isAuth } from "@/service/AuthService";
+import { useGetAuthLoginDetail } from "@/features/auth/hooks/user-auth-login-detail-hooks";
+import { UserContext } from "@/features/auth/context/UserContext";
 
 
 const AppRoute = () => {
 
     const {isAuthenticated,setIsAuthenticated} = useContext(AuthContext);
     const [isRouteLoading,setIsRouteLoading] = useState<boolean>(true);
+    const [isLogin,setIsLogin] = useState<boolean>(false);
+    const {data,isPending} = useGetAuthLoginDetail(isLogin);
+    const {setAuthUserDetail} = useContext(UserContext);
+
+
 
     useEffect(()=>{
-
         const checkUserAuthentication = async() =>{
             const token:boolean = await isAuth();
-
             if(token === false){
                 setIsAuthenticated(false);
             }else{
-                setIsAuthenticated(token);
+                setIsLogin(true);
+                // console.log(data?.data.errors,"user data");
+                if(data?.data.success === false){
+                    localStorage.clear();
+                    setIsAuthenticated(false);
+                }
+                else if(data?.data.success === true){
+                    setAuthUserDetail(data.data);
+                    setIsAuthenticated(token);
+                }
+                
             }
         }
 
         checkUserAuthentication();
         setTimeout(() => {
-            setIsRouteLoading(false);
+            setIsRouteLoading(isPending);
         }, 1200);
-    },[setIsAuthenticated]);
+    },[data,isPending]);
 
 
   return (

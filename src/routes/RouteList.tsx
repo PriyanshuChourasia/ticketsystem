@@ -56,10 +56,3 @@ export const routeList:RouteListInterface[] = [
         isPrivate: false
     }
 ];
-
-
-console.log(routeList.filter(element=> {
-    return element.children?.some(ele=> {
-        return ele.memberRoute == 0
-    })
-}))
