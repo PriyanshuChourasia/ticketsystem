@@ -13,9 +13,8 @@ const AppRoute = () => {
     const {isAuthenticated,setIsAuthenticated} = useContext(AuthContext);
     const [isRouteLoading,setIsRouteLoading] = useState<boolean>(true);
     const [isLogin,setIsLogin] = useState<boolean>(false);
-    const {data,isPending} = useGetAuthLoginDetail(isLogin);
+    const {data,isFetching} = useGetAuthLoginDetail(isLogin);
     const {setAuthUserDetail} = useContext(UserContext);
-
 
 
     useEffect(()=>{
@@ -25,10 +24,10 @@ const AppRoute = () => {
                 setIsAuthenticated(false);
             }else{
                 setIsLogin(true);
-                // console.log(data?.data.errors,"user data");
                 if(data?.data.success === false){
                     localStorage.clear();
                     setIsAuthenticated(false);
+                    setIsLogin(false)
                 }
                 else if(data?.data.success === true){
                     setAuthUserDetail(data.data);
@@ -40,9 +39,9 @@ const AppRoute = () => {
 
         checkUserAuthentication();
         setTimeout(() => {
-            setIsRouteLoading(isPending);
+            setIsRouteLoading(isFetching);
         }, 1200);
-    },[data,isPending]);
+    },[data,isFetching]);
 
 
   return (
